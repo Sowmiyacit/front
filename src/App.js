@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "./index.css";
+import "./App.css"; // Use your own CSS
+
 const App = () => {
   const [text, setText] = useState("");
   const [reminder, setReminder] = useState("");
@@ -13,7 +14,7 @@ const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(
     localStorage.getItem("user") ? true : false
   );
-  const [isLoginForm, setIsLoginForm] = useState(true); 
+  const [isLoginForm, setIsLoginForm] = useState(true);
 
   const fetchTasks = async () => {
     try {
@@ -69,7 +70,7 @@ const App = () => {
       alert("Email and Password required");
       return;
     }
-    localStorage.setItem("user", email); 
+    localStorage.setItem("user", email);
     setIsLoggedIn(true);
     setEmail("");
     setPassword("");
@@ -82,9 +83,9 @@ const App = () => {
 
   if (!isLoggedIn) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-blue-100">
-        <div className="bg-white p-8 rounded-3xl shadow-2xl w-full max-w-md">
-          <h2 className="text-3xl font-bold text-center text-blue-800 mb-6">
+      <div className="login-bg">
+        <div className="login-container">
+          <h2 className="login-title">
             {isLoginForm ? "Login" : "Sign Up"}
           </h2>
           <input
@@ -92,25 +93,25 @@ const App = () => {
             value={email}
             placeholder="Email"
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full border p-3 mb-4 rounded-xl"
+            className="input"
           />
           <input
             type="password"
             value={password}
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full border p-3 mb-4 rounded-xl"
+            className="input"
           />
           <button
             onClick={handleAuth}
-            className="w-full bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700"
+            className="btn"
           >
             {isLoginForm ? "Login" : "Sign Up"}
           </button>
-          <p className="text-center mt-4">
+          <p className="switch-form">
             {isLoginForm ? "New user?" : "Already registered?"}{" "}
             <button
-              className="text-blue-600 underline"
+              className="switch-btn"
               onClick={() => setIsLoginForm(!isLoginForm)}
             >
               {isLoginForm ? "Sign up here" : "Login here"}
@@ -122,79 +123,75 @@ const App = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-100 to-blue-200 flex items-center justify-center p-4">
-      <div className="bg-white p-8 rounded-3xl shadow-2xl w-full max-w-2xl border border-gray-200">
-        <div className="flex justify-between mb-6 items-center">
-          <h2 className="text-4xl font-bold text-blue-800">My To-Do List</h2>
+    <div className="main-bg">
+      <div className="main-container">
+        <div className="header">
+          <h2 className="title">My To-Do List</h2>
           <button
             onClick={handleLogout}
-            className="text-sm text-red-500 underline"
+            className="logout-btn"
           >
             Logout
           </button>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-3 mb-6">
+        <div className="form-row">
           <input
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder="Enter task"
-            className="flex-1 border border-gray-300 rounded-xl px-4 py-2 text-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="input"
           />
           <input
             type="datetime-local"
             value={reminder}
             onChange={(e) => setReminder(e.target.value)}
-            className="border border-gray-300 px-3 py-2 rounded-xl text-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="input"
           />
           <button
             onClick={handleSubmit}
             disabled={!text.trim()}
-            className={`${
-              !text.trim()
-                ? "bg-gray-300 text-white cursor-not-allowed"
-                : "bg-blue-600 hover:bg-blue-700 text-white"
-            } px-6 py-2 rounded-xl font-semibold transition`}
+            className={`btn ${!text.trim() ? "btn-disabled" : ""}`}
           >
             {editId ? "Update" : "Add"}
           </button>
         </div>
 
-        <ul className="space-y-3 max-h-[400px] overflow-y-auto pr-2">
+        <ul className="task-list">
           {tasks.map((task) => {
             const isExpired = task.reminder && new Date(task.reminder) < new Date();
             return (
               <li
                 key={task.id}
-                className="flex justify-between items-center bg-gray-100 px-4 py-3 rounded-xl shadow-sm border border-gray-300 transition"
+                className="task-item"
               >
                 <span
-                  className={`${
+                  className={
                     deletedIds.includes(task.id)
-                      ? "line-through text-gray-400"
+                      ? "task-text deleted"
                       : isExpired
-                      ? "text-red-600 font-medium"
-                      : "text-gray-800"
-                  }`}
+                      ? "task-text expired"
+                      : "task-text"
+                  }
                 >
                   {task.text}
                   {task.reminder && (
-                    <span className="ml-2 text-sm text-gray-500">
+                    <span className="reminder">
                       ({new Date(task.reminder).toLocaleString()})
-                      {isExpired && <span className="ml-1">⏰</span>}
+                      {isExpired && <span className="expired-icon">⏰</span>}
                     </span>
                   )}
                 </span>
-                <div className="flex gap-4">
+                <div className="task-actions">
                   <button
                     onClick={() => handleEdit(task)}
-                    className="text-yellow-600 hover:text-yellow-700 font-medium"
+                    className="edit-btn"
                   >
                     Edit
                   </button>
                   <button
                     onClick={() => handleDelete(task.id)}
-                    className="text-red-600 hover:text-red-700 font-medium"
+                    className="delete-btn"
                   >
                     Delete
                   </button>
@@ -205,7 +202,7 @@ const App = () => {
         </ul>
 
         {tasks.length === 0 && (
-          <p className="text-center text-gray-400 mt-6">No tasks found. Add some!</p>
+          <p className="no-tasks">No tasks found. Add some!</p>
         )}
       </div>
     </div>
@@ -213,3 +210,4 @@ const App = () => {
 };
 
 export default App;
+// ...existing code...

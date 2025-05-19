@@ -1,38 +1,175 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+.login-bg {
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  background: #dbeafe;
 }
-
-.App-link {
-  color: #61dafb;
+.login-container {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 2rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 400px;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.login-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #1e40af;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.input {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border-radius: 1rem;
+  font-size: 1rem;
+}
+.btn {
+  width: 100%;
+  background: #2563eb;
+  color: #fff;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+.btn:hover {
+  background: #1d4ed8;
+}
+.btn-disabled {
+  background: #d1d5db;
+  color: #fff;
+  cursor: not-allowed;
+}
+.switch-form {
+  text-align: center;
+}
+.switch-btn {
+  background: none;
+  border: none;
+  color: #2563eb;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 1rem;
+}
+.main-bg {
+  min-height: 100vh;
+  background: linear-gradient(to right, #dbeafe, #bfdbfe);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+.main-container {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 2rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 700px;
+  border: 1px solid #e5e7eb;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+.title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #1e40af;
+}
+.logout-btn {
+  background: none;
+  border: none;
+  color: #ef4444;
+  text-decoration: underline;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+@media (min-width: 640px) {
+  .form-row {
+    flex-direction: row;
   }
-  to {
-    transform: rotate(360deg);
-  }
+}
+.task-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 400px;
+  overflow-y: auto;
+}
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f3f4f6;
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  border: 1px solid #d1d5db;
+  margin-bottom: 0.75rem;
+  transition: background 0.2s;
+}
+.task-text {
+  font-size: 1.1rem;
+  color: #1f2937;
+}
+.task-text.deleted {
+  text-decoration: line-through;
+  color: #9ca3af;
+}
+.task-text.expired {
+  color: #dc2626;
+  font-weight: 500;
+}
+.reminder {
+  margin-left: 0.5rem;
+  font-size: 0.95rem;
+  color: #6b7280;
+}
+.expired-icon {
+  margin-left: 0.25rem;
+}
+.task-actions {
+  display: flex;
+  gap: 1rem;
+}
+.edit-btn {
+  background: none;
+  border: none;
+  color: #f59e42;
+  font-weight: 500;
+  cursor: pointer;
+}
+.edit-btn:hover {
+  color: #d97706;
+}
+.delete-btn {
+  background: none;
+  border: none;
+  color: #ef4444;
+  font-weight: 500;
+  cursor: pointer;
+}
+.delete-btn:hover {
+  color: #b91c1c;
+}
+.no-tasks {
+  text-align: center;
+  color: #9ca3af;
+  margin-top: 1.5rem;
 }
